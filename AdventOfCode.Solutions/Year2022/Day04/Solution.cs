@@ -2,18 +2,18 @@ namespace AdventOfCode.Solutions.Year2022.Day04;
 
 class Solution : SolutionBase
 {
-    public Solution() : base(04, 2022, "") { }
+    public Solution() : base(04, 2022, "Camp Cleanup") { }
 
     protected override string SolvePartOne()
     {
         int containCount = 0;
         foreach (string pair in Input.SplitByNewline())
         {
-            var assignments = ParseAssignments(pair);
-            if ((assignments.FirstStart <= assignments.SecondStart
-                && assignments.FirstEnd >= assignments.SecondEnd)
-                || (assignments.SecondStart <= assignments.FirstStart
-                && assignments.SecondEnd >= assignments.FirstEnd))
+            (int FirstStart, int FirstEnd, int SecondStart, int SecondEnd) = ParseAssignments(pair);
+            if ((FirstStart <= SecondStart
+                && FirstEnd >= SecondEnd)
+                || (SecondStart <= FirstStart
+                && SecondEnd >= FirstEnd))
             {
                 containCount++;
             }
@@ -27,11 +27,11 @@ class Solution : SolutionBase
         int overlapCount = 0;
         foreach (string pair in Input.SplitByNewline())
         {
-            var assignments = ParseAssignments(pair);
-            if ((assignments.FirstStart <= assignments.SecondStart
-                && assignments.FirstEnd >= assignments.SecondStart)
-                || (assignments.SecondStart <= assignments.FirstStart
-                && assignments.SecondEnd >= assignments.FirstStart))
+            (int FirstStart, int FirstEnd, int SecondStart, int SecondEnd) = ParseAssignments(pair);
+            if ((FirstStart <= SecondStart
+                && FirstEnd >= SecondStart)
+                || (SecondStart <= FirstStart
+                && SecondEnd >= FirstStart))
             {
                 overlapCount++;
             }
@@ -40,7 +40,7 @@ class Solution : SolutionBase
         return overlapCount.ToString();
     }
 
-    private (int FirstStart, int FirstEnd, int SecondStart, int SecondEnd) ParseAssignments(string input)
+    private static (int FirstStart, int FirstEnd, int SecondStart, int SecondEnd) ParseAssignments(string input)
     {
         string[] splitPair = input.Split(',');
         int[] firstAssignment = splitPair[0].ToIntArray("-");

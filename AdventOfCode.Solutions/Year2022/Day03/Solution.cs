@@ -2,7 +2,7 @@ namespace AdventOfCode.Solutions.Year2022.Day03;
 
 class Solution : SolutionBase
 {
-    public Solution() : base(03, 2022, "") { }
+    public Solution() : base(03, 2022, "Rucksack Reorganization") { }
 
     protected override string SolvePartOne()
     {
@@ -24,6 +24,7 @@ class Solution : SolutionBase
                 }
             }
         }
+
         return prioritySum.ToString();
     }
 
@@ -40,10 +41,11 @@ class Solution : SolutionBase
             char item = rucksack1.Intersect(rucksack2).Intersect(rucksack3).First();
             prioritySum += GetPriority(item);
         }
+
         return prioritySum.ToString();
     }
 
-    private int GetPriority(char item)
+    private static int GetPriority(char item)
     {
         if (item <= 90)
         {
